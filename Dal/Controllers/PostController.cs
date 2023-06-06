@@ -1,62 +1,60 @@
-﻿
-using Dal.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dal.Controllers
+namespace Dal.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class PostController : ControllerBase
 {
-    [Route("api/post")]
-    [ApiController]
-    public class PostController : ControllerBase
+    ApplicationContext _context;
+    public PostController(ApplicationContext context)
     {
-        ApplicationContext _context;
-        public PostController(ApplicationContext context)
-        {
-            _context = context;
-        }
+        _context = context;
+    }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
-        {
-            return await _context.Post.ToListAsync();
-        }
+    [HttpGet("getPosts")]
+    public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
+    {
+        var post = await _context.Post.ToListAsync();
+        return Ok(post);
+    }
 
-        [HttpGet("get/{id}")]
-        public async Task<ActionResult<Post>> GetPost(int id)
-        {
-            var post = await _context.Post.FindAsync(id);
-            if (mentor == null) return NotFound();
-            return await mentor.WithClients(_context);
-        }
+    [HttpGet("getPost/{id}")]
+    public async Task<ActionResult<Post>> GetPost(int id)
+    {
+        var post = await _context.Post.FindAsync(id);
+        if (post == null) return NotFound();
+        return post;
+    }
 
-        [HttpPost("PostMentor")] //api/client/updateMentor
-        public async Task<ActionResult<Mentor>> PostMentor(Mentor mentor)
-        {
-            if (mentor == null) return BadRequest();
-            _context.Mentor.Add(mentor);
-            await _context.SaveChangesAsync();
-            return Ok(mentor);
-        }
+    [HttpPost("addPost")]
+    public async Task<ActionResult<Post>> AddPost(Post post)
+    {
+        if (post == null) return BadRequest();
+        await _context.Post.AddAsync(post);
+        await _context.SaveChangesAsync();
+        return Ok(post);
+    }
 
-        [HttpPut("PutMentor")]
-        public async Task<ActionResult<Mentor>> Put(Mentor mentor)
-        {
-            if (mentor == null) return BadRequest();
+    [HttpPut("updatePost")]
+    public async Task<ActionResult<Post>> UpdatePost(Post post)
+    {
+        if (post == null) return BadRequest();
 
-            _context.Update(mentor);
-            await _context.SaveChangesAsync();
-            return Ok(mentor);
-        }
+        _context.Update(post);
+        await _context.SaveChangesAsync();
+        return Ok(post);
+    }
 
-        [HttpDelete("DeleteMentor/{Id}")]
-        public async Task<ActionResult<Mentor>> Delete(int id)
-        {
-            var mentor = _context.Mentor.FirstOrDefaultAsync(p => p.MentorId == id);
-            if (mentor == null) return NotFound();
-            _context.Mentor.Remove(await mentor);
-            await _context.SaveChangesAsync();
-            return Ok(mentor);
-        }
+    [HttpDelete("deletePost/{Id}")]
+    public async Task<ActionResult<Post>> DeletePost(int id)
+    {
+        var post = _context.Post.FirstOrDefaultAsync(p => p.PostId == id);
+        if (post == null) return NotFound();
+        _context.Post.Remove(await post);
+        await _context.SaveChangesAsync();
+        return Ok(post);
     }
 }

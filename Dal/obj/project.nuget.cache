@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gvE+3wJRdESFEadbtgd3l5iP9L9OG1JZCwwl3koFKgsYcTfc/g3yRAHb/D8+sNxtKuHh1ovEI8vCvCkYjwU7rg==",
+  "dgSpecHash": "0Y/IF3W8KAz3WPilqCJiafIUSMNYxB+0IfXlBeVbu/npbkx59+yP8ZUkwSrTeAAc3K2tSuETlp8mLSTov2oVXw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Maxim\\Documents\\Marina\\Dal\\Dal.csproj",
+  "projectFilePath": "C:\\Users\\Maxim\\Documents\\GitHub\\react\\Dal\\Dal.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Maxim\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Maxim\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
